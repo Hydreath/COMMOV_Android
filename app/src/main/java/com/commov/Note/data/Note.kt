@@ -3,20 +3,24 @@ package com.commov.Note.data
 import java.util.*
 
 class Note{
+    var id: Int? = null
+    var title: String = ""
     var description: String = ""
-    var startDate: Date? = null
-    var endDate: Date? = null
-    var weekDays: Int? = null
+    var createdAt: Date = Date()
+    lateinit var relevantAt: Date
 
-    constructor() {}
-
-    constructor(description: String, startDate: Int?, endDate: Int?, weekDays: Int?){
+    constructor(title: String, description: String, date: Date) {
+        this.title = title
         this.description = description
-        if (startDate != null)
-            this.startDate = Date(startDate.toLong())
-        if(endDate != null)
-            this.endDate = Date(endDate.toLong())
-        this.weekDays = weekDays
+        this.relevantAt = date
+    }
+
+    constructor(id: Int, title: String, description: String, createdAt: Date, date: Date) {
+        this.id = id
+        this.title = title
+        this.description = description
+        this.relevantAt = date
+        this.createdAt = createdAt
     }
 
 
