@@ -55,7 +55,7 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         this.mOnClickDelete = f
     }
 
-    fun onEditClickListe(f: (View) -> Unit){
+    fun onEditClickListen(f: (View) -> Unit){
         this.mOnClickEdit = f
     }
 }

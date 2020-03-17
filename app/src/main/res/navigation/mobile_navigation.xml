@@ -15,4 +15,16 @@
         android:name="com.commov.NoteCreatorFragment"
         android:label="fragment_note_creator"
         tools:layout="@layout/fragment_note_creator" />
+
+    <fragment
+        android:id="@+id/notesListFragment"
+        android:name="com.commov.NotesListFragment"
+        android:label="fragment_note_list"
+        tools:layout="@layout/fragment_notes_list" />
+
+    <fragment
+        android:id="@+id/noteEditorFragment"
+        android:name="com.commov.NoteEditorFragment"
+        android:label="fragment_note_list"
+        tools:layout="@layout/fragment_notes_list" />
 </navigation>

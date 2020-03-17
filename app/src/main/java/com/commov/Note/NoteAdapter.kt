@@ -1,9 +1,11 @@
 package com.commov.Note
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.commov.Note.data.DatabaseHelper
 import com.commov.Note.data.Note
@@ -30,8 +32,9 @@ class NoteAdapter(private var data : ArrayList<Note>): RecyclerView.Adapter<View
                 this.notifyDataSetChanged();
             }
         }
-        holder.onEditClickListe {
-            Toast.makeText(it.context, "Not implemented yet", Toast.LENGTH_SHORT).show()
+        holder.onEditClickListen {
+            val send = bundleOf("note" to this.data[position])
+            it.findNavController().navigate(R.id.noteEditorFragment, send)
         }
     }
 }
