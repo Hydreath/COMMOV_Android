@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.BoringLayout
 import android.widget.TextView
 import android.widget.Toast
+import com.commov.network.Endpoints
 
 class LoginActivity : AppCompatActivity() {
 
@@ -20,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun login(email: String, password: String): Boolean {
-
+        val serviceURI = "${Endpoints.address}users/login";
         return true
     }
 }
