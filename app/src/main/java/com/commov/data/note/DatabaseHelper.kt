@@ -1,4 +1,4 @@
-package com.commov.Note.data
+package com.commov.data.note
 
 import android.content.ContentValues
 import android.content.Context
@@ -8,7 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper
 import java.util.*
 import kotlin.collections.ArrayList
 
-class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME , null, DATABASE_VERSION){
+class DatabaseHelper(context: Context): SQLiteOpenHelper(context,
+    DATABASE_NAME, null,
+    DATABASE_VERSION
+){
     override fun onCreate(db: SQLiteDatabase?) {
         db!!.execSQL("CREATE TABLE $TABLE_NOTES($COLLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COLLUMN_CREATED_AT INTEGER NOT NULL, $COLLUMN_RELEVANT_AT INTEGER NOT NULL, $COLLUMN_TITLE TEXT, $COLLUMN_DESCRIPTION TEXT)")
     }
@@ -38,7 +41,15 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME 
         while (cursor.moveToNext()) {
             println(cursor.getLong(1))
             println(cursor.getLong(2))
-            results.add(Note(cursor.getInt(0), cursor.getString(3), cursor.getString(4), Date(cursor.getLong(1)), Date(cursor.getLong(2))))
+            results.add(
+                Note(
+                    cursor.getInt(0),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    Date(cursor.getLong(1)),
+                    Date(cursor.getLong(2))
+                )
+            )
         }
         cursor.close()
         this.writableDatabase.close()

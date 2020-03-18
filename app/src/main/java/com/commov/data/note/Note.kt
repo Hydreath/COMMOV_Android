@@ -1,4 +1,4 @@
-package com.commov.Note.data
+package com.commov.data.note
 
 import android.os.Parcel
 import android.os.Parcelable

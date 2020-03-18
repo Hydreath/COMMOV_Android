@@ -7,24 +7,24 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.commov.NotesListFragment"
+        android:name="com.commov.ui.note.NotesListFragment"
         android:label="@string/notes"
         tools:layout="@layout/fragment_notes_list"/>
     <fragment
         android:id="@+id/noteCreatorFragment"
-        android:name="com.commov.NoteCreatorFragment"
+        android:name="com.commov.ui.note.NoteCreatorFragment"
         android:label="fragment_note_creator"
         tools:layout="@layout/fragment_note_creator" />
 
     <fragment
         android:id="@+id/notesListFragment"
-        android:name="com.commov.NotesListFragment"
+        android:name="com.commov.ui.note.NotesListFragment"
         android:label="fragment_note_list"
         tools:layout="@layout/fragment_notes_list" />
 
     <fragment
         android:id="@+id/noteEditorFragment"
-        android:name="com.commov.NoteEditorFragment"
+        android:name="com.commov.ui.note.NoteEditorFragment"
         android:label="fragment_note_list"
         tools:layout="@layout/fragment_notes_list" />
 </navigation>

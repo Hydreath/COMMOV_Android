@@ -1,16 +1,16 @@
-package com.commov
+package com.commov.ui.note
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
 import android.widget.CalendarView
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.commov.Note.data.DatabaseHelper
-import com.commov.Note.data.Note
+import com.commov.data.note.DatabaseHelper
+import com.commov.data.note.Note
+import com.commov.R
 import java.util.*
 
 class NoteEditorFragment : Fragment() {
@@ -71,7 +71,8 @@ class NoteEditorFragment : Fragment() {
                     return false
                 else {
                     // Call database function and redirect
-                    val db: DatabaseHelper = DatabaseHelper(context!!)
+                    val db: DatabaseHelper =
+                        DatabaseHelper(context!!)
                     if(db.updateNote(this.note)) {
                         findNavController().popBackStack()
                         findNavController().navigate(R.id.notesListFragment)

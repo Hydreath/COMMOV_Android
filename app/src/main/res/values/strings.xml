@@ -19,6 +19,7 @@
     <string name="notes">Notes</string>
     <string name="name_label">Name</string>
     <string name="save">save</string>
+    <string name="description">Description</string>
     <string-array name="weekdays">
         <item>Monday</item>
         <item>Thuesday</item>

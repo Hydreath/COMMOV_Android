@@ -1,14 +1,13 @@
-package com.commov.Note
+package com.commov.ui.note
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.commov.Note.data.DatabaseHelper
-import com.commov.Note.data.Note
+import com.commov.data.note.DatabaseHelper
+import com.commov.data.note.Note
 import com.commov.R
 
 class NoteAdapter(private var data : ArrayList<Note>): RecyclerView.Adapter<ViewHolder>() {

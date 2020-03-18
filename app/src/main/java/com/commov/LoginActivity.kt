@@ -3,6 +3,7 @@ package com.commov
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.BoringLayout
 import android.widget.TextView
 import android.widget.Toast
 
@@ -16,5 +17,10 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    fun login(email: String, password: String): Boolean {
+
+        return true
     }
 }

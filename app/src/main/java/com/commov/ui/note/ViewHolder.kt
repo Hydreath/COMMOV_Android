@@ -1,6 +1,5 @@
-package com.commov.Note
+package com.commov.ui.note
 
-import android.view.ContextMenu
 import android.view.MenuInflater
 import android.view.View
 import android.widget.ImageButton
@@ -8,7 +7,7 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.commov.R
-import com.commov.Note.data.Note
+import com.commov.data.note.Note
 import java.text.SimpleDateFormat
 import java.util.*
 

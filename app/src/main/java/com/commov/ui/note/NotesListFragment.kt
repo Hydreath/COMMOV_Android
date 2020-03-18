@@ -1,4 +1,4 @@
-package com.commov
+package com.commov.ui.note
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.commov.Note.NoteAdapter
-import com.commov.Note.data.DatabaseHelper
+import com.commov.ui.note.NoteAdapter
+import com.commov.data.note.DatabaseHelper
+import com.commov.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class NotesListFragment : Fragment() {
@@ -20,14 +21,16 @@ class NotesListFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_notes_list, container, false);
         val recyclerView = view.findViewById<RecyclerView>(R.id.note_list)
-        val adapter = NoteAdapter(DatabaseHelper(this.context!!).getAllNotes())
+        val adapter =
+            NoteAdapter(DatabaseHelper(this.context!!).getAllNotes())
         recyclerView.adapter = adapter
 
 
         // Making the navigator change the current fragment on fab click
         val fab: FloatingActionButton = view.findViewById(R.id.addButton)
+
         fab.setOnClickListener { view ->
-            val navController = findNavController();
+            val navController = this.findNavController();
             navController.navigate(R.id.noteCreatorFragment)
         }
 

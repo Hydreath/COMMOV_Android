@@ -1,4 +1,4 @@
-package com.commov
+package com.commov.ui.note
 
 
 import android.os.Bundle
@@ -6,16 +6,15 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import com.commov.Note.data.DatabaseHelper
-import com.commov.Note.data.Note
+import com.commov.data.note.DatabaseHelper
+import com.commov.data.note.Note
+import com.commov.R
 import java.util.*
 
 class NoteCreatorFragment : Fragment() {
-    private val note: Note = Note()
+    private val note: Note =
+        Note()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +65,8 @@ class NoteCreatorFragment : Fragment() {
                 if(!validateData(this.view!!))
                     return false
                 else {
-                    val db = DatabaseHelper(this.view!!.context)
+                    val db =
+                        DatabaseHelper(this.view!!.context)
                     db.addNote(this.note)
                     val navController = findNavController();
                     findNavController().popBackStack()
