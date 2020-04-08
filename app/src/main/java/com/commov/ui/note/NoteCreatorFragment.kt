@@ -59,7 +59,7 @@ class NoteCreatorFragment : Fragment() {
         when(item.itemId){
             android.R.id.home -> {
                 findNavController().popBackStack()
-                findNavController().navigate(R.id.notesListFragment)
+                findNavController().navigate(R.id.notesList)
             }
             R.id.saveItem -> {
                 if(!validateData(this.view!!))
@@ -70,7 +70,7 @@ class NoteCreatorFragment : Fragment() {
                     db.addNote(this.note)
                     val navController = findNavController();
                     findNavController().popBackStack()
-                    navController.navigate(R.id.notesListFragment)
+                    navController.navigate(R.id.notesList)
                 }
             }
         }

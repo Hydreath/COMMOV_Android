@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_note_creator" />
 
     <fragment
-        android:id="@+id/notesListFragment"
+        android:id="@+id/notesList"
         android:name="com.commov.ui.note.NotesListFragment"
         android:label="fragment_note_list"
         tools:layout="@layout/fragment_notes_list" />
@@ -27,4 +27,9 @@
         android:name="com.commov.ui.note.NoteEditorFragment"
         android:label="fragment_note_list"
         tools:layout="@layout/fragment_notes_list" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.commov.ui.map.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
 </navigation>

@@ -1,5 +1,5 @@
 package com.commov.network
 
 object Endpoints {
-    val address: String = "http://127.0.0.1/"
+    val address: String = "http://10.0.2.2:3000/"
 }

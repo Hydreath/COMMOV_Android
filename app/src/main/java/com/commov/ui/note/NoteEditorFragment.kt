@@ -27,8 +27,7 @@ class NoteEditorFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //super.onViewCreated(view, savedInstanceState)
-
+        super.onViewCreated(view, savedInstanceState)
         this.note = arguments?.get("note")!! as Note
         this.populateFields(note)
         view.findViewById<CalendarView>(R.id.dayContainer).setOnDateChangeListener { view, year, month, dayOfMonth ->
@@ -64,7 +63,7 @@ class NoteEditorFragment : Fragment() {
         when (item.itemId) {
             android.R.id.home -> {
                 findNavController().popBackStack()
-                findNavController().navigate(R.id.notesListFragment)
+                findNavController().navigate(R.id.notesList)
             }
             R.id.saveItem -> {
                 if(!validateData(this.view!!))
@@ -75,7 +74,7 @@ class NoteEditorFragment : Fragment() {
                         DatabaseHelper(context!!)
                     if(db.updateNote(this.note)) {
                         findNavController().popBackStack()
-                        findNavController().navigate(R.id.notesListFragment)
+                        findNavController().navigate(R.id.notesList)
                     }
                 }
             }
