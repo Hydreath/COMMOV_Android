@@ -5,6 +5,7 @@ import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
+import com.commov.R
 import org.json.JSONObject
 
 object IssueFactory {
@@ -23,7 +24,7 @@ object IssueFactory {
         body.put("description", description)
         body.put("lat", lat)
         body.put("long", long)
-        // missing base64 image
+        body.put("imagePath", photo)
 
         val jsonObjectRequest = object : JsonObjectRequest(
             Request.Method.POST,
@@ -35,7 +36,7 @@ object IssueFactory {
             Response.ErrorListener { error ->
                 Toast.makeText(
                     context,
-                    "Some error occurred while creating a new issue!",
+                    context.getString(R.string.ErrorCreatingIssue),
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -65,7 +66,7 @@ object IssueFactory {
             Response.ErrorListener { error ->
                 Toast.makeText(
                     context,
-                    "Some error occurred while getting all issues!",
+                    context.getString(R.string.errorGettingIssues),
                     Toast.LENGTH_SHORT
                 ).show()
             }

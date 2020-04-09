@@ -27,6 +27,17 @@
     <string name="issueDescription">Description</string>
     <string name="issueSave">Save</string>
     <string name="issuePhoto">Photo</string>
+    <string name="errorGettingIssues">Some error occurred while getting all issues!</string>
+    <string name="ErrorCreatingIssue">Some error occurred while creating a new issue!</string>
+    <string name="createIssueFieldsMissing">Make sure to fill all the fields!</string>
+    <string name="issueCreated">Issue created successfully!</string>
+    <string name="emptyDescription">The description text is empty</string>
+    <string name="createNoteTitle">Create Note</string>
+    <string name="editNoteTitle">Edit Note</string>
+    <string name="editDescriptionEmpty">The description text is empty</string>
+    <string name="noteListTitle">Notes</string>
+    <string name="commovhelp">CommovHelp</string>
+    <string name="commovhelp">CommovHelp</string>
     <string-array name="weekdays">
         <item>Monday</item>
         <item>Thuesday</item>

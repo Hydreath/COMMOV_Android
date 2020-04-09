@@ -34,7 +34,7 @@ class NotesListFragment : Fragment() {
             navController.navigate(R.id.noteCreatorFragment)
         }
 
-        (activity as AppCompatActivity).supportActionBar!!.title = "Notes"
+        (activity as AppCompatActivity).supportActionBar!!.title = getString(R.string.noteListTitle)
 
         return view
     }

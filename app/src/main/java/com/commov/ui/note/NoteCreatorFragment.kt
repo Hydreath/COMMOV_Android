@@ -25,7 +25,7 @@ class NoteCreatorFragment : Fragment() {
         // add back button
         (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity).supportActionBar!!.title = "Create Note"
+        (activity as AppCompatActivity).supportActionBar!!.title = getString(R.string.createNoteTitle)
         setHasOptionsMenu(true)
 
         return view
@@ -45,7 +45,7 @@ class NoteCreatorFragment : Fragment() {
         val desc: String = view.findViewById<EditText>(R.id.editDesc).text.toString()
 
         if(desc.isEmpty() || title.isEmpty()) {
-            Toast.makeText(view.context, "The description text is empty", Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, getString(R.string.emptyDescription), Toast.LENGTH_SHORT).show()
             return false
         }
 

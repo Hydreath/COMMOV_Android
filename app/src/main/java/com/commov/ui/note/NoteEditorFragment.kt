@@ -21,7 +21,7 @@ class NoteEditorFragment : Fragment() {
         // cancel button
         (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity).supportActionBar!!.title = "Edit Note"
+        (activity as AppCompatActivity).supportActionBar!!.title = getString(R.string.editNoteTitle)
         setHasOptionsMenu(true)
         return view
     }
@@ -32,7 +32,6 @@ class NoteEditorFragment : Fragment() {
         this.populateFields(note)
         view.findViewById<CalendarView>(R.id.dayContainer).setOnDateChangeListener { view, year, month, dayOfMonth ->
             this.note.relevantAt = GregorianCalendar(year, month, dayOfMonth).time
-            println("Changed date test")
         }
     }
 
@@ -51,7 +50,7 @@ class NoteEditorFragment : Fragment() {
         val desc: String = view.findViewById<EditText>(R.id.editDesc).text.toString()
 
         if (desc.isEmpty() || title.isEmpty()) {
-            Toast.makeText(view.context, "The description text is empty", Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, getString(R.string.editDescriptionEmpty), Toast.LENGTH_SHORT).show()
             return false
         }
         this.note.title = title

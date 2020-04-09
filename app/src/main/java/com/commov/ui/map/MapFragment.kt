@@ -93,18 +93,28 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
             btn.setOnClickListener {
                 val title = dialogView.findViewById<EditText>(R.id.issueTitleEdit).text.toString()
                 val desc = dialogView.findViewById<EditText>(R.id.issueDescEdit).text.toString()
-                //val photo = bitmapToBase64(this.currentImage)
-
-                IssueFactory.createIssue(
-                    context!!,
-                    title,
-                    desc,
-                    currentLocation.latitude.toFloat(),
-                    currentLocation.longitude.toFloat(),
-                    null
-                ) {
-                    this.map.addMarker(MarkerOptions().position(currentLocation))
-                    // ADD LOGIC AFTER
+                val photo = bitmapToBase64(this.currentImage)
+                if (title.isNotEmpty() && desc.isNotEmpty() && photo.isNotEmpty()) {
+                    IssueFactory.createIssue(
+                        context!!,
+                        title,
+                        desc,
+                        currentLocation.latitude.toFloat(),
+                        currentLocation.longitude.toFloat(),
+                        photo
+                    ) {
+                        this.map.addMarker(MarkerOptions().position(currentLocation))
+                        // ADD LOGIC AFTER
+                        alertDialog.dismiss()
+                        Toast.makeText(context, getString(R.string.issueCreated), Toast.LENGTH_LONG)
+                            .show()
+                    }
+                } else {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.createIssueFieldsMissing),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
 
@@ -148,7 +158,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
 
         p0!!.setOnMarkerClickListener(this)
 
-        // INIT ALL POINTS SOON
         IssueFactory.getAllIssues(this.context!!) {
             initMarkers(p0, it)
         }
@@ -178,7 +187,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
             this.currentPhotoView.setImageBitmap(this.currentImage)
         }
     }
-
 
     private fun bitmapToBase64(image: Bitmap): String {
         val byteArrayOutputStream = ByteArrayOutputStream();
@@ -211,7 +219,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         return true;
     }
 
-    fun createMarkerPopup(issue:Issue){
+    fun createMarkerPopup(issue: Issue) {
         val dialogView =
             LayoutInflater.from(context).inflate(R.layout.popup_read_issue, null)
         val builder = AlertDialog.Builder(context!!).setView(dialogView).setTitle(issue.title)
@@ -219,7 +227,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         alertDialog.setCanceledOnTouchOutside(true)
         alertDialog.findViewById<TextView>(R.id.rIssueDescription)?.text = issue.desc
         alertDialog.findViewById<TextView>(R.id.rIssueDate)?.text = issue.getDateFormated()
-        if(issue.image.isNotEmpty())
-            alertDialog.findViewById<ImageView>(R.id.rIssuePhoto)?.setImageBitmap(issue.imageToBitmap())
+        alertDialog.findViewById<ImageView>(R.id.rImageIssue)?.setImageBitmap(issue.imageToBitmap())
     }
 }
