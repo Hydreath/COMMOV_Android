@@ -34,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         skipLogin.setOnClickListener {
+            UserAuth.logout()
             changeToMain()
         }
     }

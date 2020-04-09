@@ -45,4 +45,9 @@ object UserAuth {
 
         return true
     }
+
+    fun logout(){
+        this.token = ""
+        this.isLoggedIn = false
+    }
 }

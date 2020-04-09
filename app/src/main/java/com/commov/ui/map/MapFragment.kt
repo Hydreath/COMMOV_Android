@@ -12,15 +12,11 @@ import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Layout
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.PopupWindow
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -87,7 +83,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
             val builder = AlertDialog.Builder(context!!).setView(dialogView).setTitle("Add Issue")
             val alertDialog = builder.show()
             alertDialog.setCanceledOnTouchOutside(true)
-            this.currentPhotoView = dialogView.findViewById<ImageView>(R.id.issuePhoto)
+            this.currentPhotoView = dialogView.findViewById<ImageView>(R.id.rIssuePhoto)
             this.currentPhotoView.setOnClickListener {
                 var i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 startActivityForResult(i, 123)
@@ -153,7 +149,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         p0!!.setOnMarkerClickListener(this)
 
         // INIT ALL POINTS SOON
-        IssueFactory.getAllIssues(this.context!!){
+        IssueFactory.getAllIssues(this.context!!) {
             initMarkers(p0, it)
         }
     }
@@ -191,19 +187,39 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
-    private fun initMarkers(p0: GoogleMap?, response: JSONObject){
+    private fun initMarkers(p0: GoogleMap?, response: JSONObject) {
         println(response.get("data"))
         val array = response.get("data") as JSONArray
-        for(i in 0 until array.length()){
+        for (i in 0 until array.length()) {
             val temp = array.getJSONObject(i)
-            val iss = Issue(temp.getInt("issueId"), temp.getString("title"), temp.getString("description"), temp.getString("imagePath"), temp.getDouble("lat"), temp.getDouble("long"))
+            val iss = Issue(
+                temp.getInt("issueId"),
+                temp.getString("title"),
+                temp.getString("description"),
+                temp.getString("imagePath"),
+                temp.getDouble("lat"),
+                temp.getDouble("long"),
+                temp.getString("createdAt")
+            )
             val marker = p0?.addMarker(iss.createMarker())
             markers.put(marker!!, iss)
         }
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
-        println(markers.get(p0!!).toString())
+        markers.get(p0!!)?.let { createMarkerPopup(it) }
         return true;
+    }
+
+    fun createMarkerPopup(issue:Issue){
+        val dialogView =
+            LayoutInflater.from(context).inflate(R.layout.popup_read_issue, null)
+        val builder = AlertDialog.Builder(context!!).setView(dialogView).setTitle(issue.title)
+        val alertDialog = builder.show()
+        alertDialog.setCanceledOnTouchOutside(true)
+        alertDialog.findViewById<TextView>(R.id.rIssueDescription)?.text = issue.desc
+        alertDialog.findViewById<TextView>(R.id.rIssueDate)?.text = issue.getDateFormated()
+        if(issue.image.isNotEmpty())
+            alertDialog.findViewById<ImageView>(R.id.rIssuePhoto)?.setImageBitmap(issue.imageToBitmap())
     }
 }
