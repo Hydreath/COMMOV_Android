@@ -22,6 +22,11 @@
     <string name="description">Description</string>
     <string name="map">Map</string>
     <string name="added_points">Added Points</string>
+    <string name="issueLabel">Issue</string>
+    <string name="issueTitle">Title</string>
+    <string name="issueDescription">Description</string>
+    <string name="issueSave">Save</string>
+    <string name="issuePhoto">Photo</string>
     <string-array name="weekdays">
         <item>Monday</item>
         <item>Thuesday</item>
