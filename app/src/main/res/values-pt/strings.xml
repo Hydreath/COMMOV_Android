@@ -1,2 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">COMMOV</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="skip_login">Saltar Login</string>
+    <string name="password">Password</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Abrir menu lateral</string>
+    <string name="navigation_drawer_close">Fechar menu latera</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Header de Navegação</string>
+    <string name="action_settings">Defenições</string>
+    <string name="menu_add">Adicionar</string>
+    <string name="menu_view_all">Ver</string>
+    <string name="notes">Notas</string>
+    <string name="name_label">Nome</string>
+    <string name="save">Guardar</string>
+    <string name="description">Descrição</string>
+    <string name="map">Mapa</string>
+    <string name="added_points">Pontos Adicionados</string>
+    <string name="issueLabel">Problemas</string>
+    <string name="issueTitle">Título</string>
+    <string name="issueDescription">Descrição</string>
+    <string name="issueSave">Guardar</string>
+    <string name="issuePhoto">Foto</string>
+    <string name="errorGettingIssues">Ocorreu um erro ao obter os problemas!</string>
+    <string name="ErrorCreatingIssue">Occorreu algum erro ao criar um novo problema!</string>
+    <string name="createIssueFieldsMissing">Por favor preencha todos os campos para continuar!</string>
+    <string name="issueCreated">Problema criado com sucesso!</string>
+    <string name="emptyDescription">A descrição está vazia!</string>
+    <string name="createNoteTitle">Criar Nota</string>
+    <string name="editNoteTitle">Editar Nota</string>
+    <string name="editDescriptionEmpty">A descrição está vazia!</string>
+    <string name="noteListTitle">Notes</string>
+    <string name="commovhelp">CommovHelp</string>
+    <string name="removeNote">Remover</string>
+    <string name="editNote">Editar</string>
+
+
+</resources>

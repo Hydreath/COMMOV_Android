@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/editCard"
-        android:title="Edit" />
+        android:title="@string/editNote" />
     <item
         android:id="@+id/removeCard"
-        android:title="Remove" />
+        android:title="@string/removeNote" />
 
 </menu>

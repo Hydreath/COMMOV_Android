@@ -37,15 +37,6 @@
     <string name="editDescriptionEmpty">The description text is empty</string>
     <string name="noteListTitle">Notes</string>
     <string name="commovhelp">CommovHelp</string>
-    <string name="commovhelp">CommovHelp</string>
-    <string-array name="weekdays">
-        <item>Monday</item>
-        <item>Thuesday</item>
-        <item>Wednesday</item>
-        <item>Thursday</item>
-        <item>Friday</item>
-        <item>Saturday</item>
-        <item>Sunday</item>
-    </string-array>
-
+    <string name="removeNote">Remove</string>
+    <string name="editNote">Edit</string>
 </resources>
