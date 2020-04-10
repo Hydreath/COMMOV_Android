@@ -14,6 +14,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -22,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.commov.MainActivity
 import com.commov.R
 import com.commov.data.issue.Issue
 import com.commov.network.IssueFactory
@@ -40,12 +42,12 @@ import java.io.ByteArrayOutputStream
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
-    private var currentLocation: LatLng = LatLng(.0, .0)
+    private var currentLocation: LatLng = LatLng(41.709315, -8.825261)
     private lateinit var mapView: MapView
     private lateinit var locationManager: LocationManager
     private lateinit var currentPhotoView: ImageView
     private lateinit var currentImage: Bitmap
-    private lateinit var map: GoogleMap
+    private var map: GoogleMap? = null
     private val markers: HashMap<Marker, Issue> = HashMap()
 
     private var locationListener: LocationListener = object : LocationListener {
@@ -58,12 +60,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         override fun onProviderDisabled(provider: String?) {}
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        (activity as AppCompatActivity).supportActionBar!!.title = "Map"
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).supportActionBar!!.title = getString(R.string.map)
 
         locationManager =
             (activity as AppCompatActivity).getSystemService(LOCATION_SERVICE) as LocationManager
@@ -76,6 +78,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         super.onViewCreated(view, savedInstanceState)
 
         // Setup create issue pop up
+        view.findViewById<FloatingActionButton>(R.id.center).setOnClickListener {
+            map?.moveCamera(CameraUpdateFactory.newLatLng(currentLocation))
+        }
+
         val fab: FloatingActionButton = view.findViewById(R.id.addIssue)
         fab.setOnClickListener { view ->
             val dialogView =
@@ -103,7 +109,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
                         currentLocation.longitude.toFloat(),
                         photo
                     ) {
-                        this.map.addMarker(MarkerOptions().position(currentLocation))
+                        this.map?.addMarker(MarkerOptions().position(currentLocation))
                         // ADD LOGIC AFTER
                         alertDialog.dismiss()
                         Toast.makeText(context, getString(R.string.issueCreated), Toast.LENGTH_LONG)
@@ -228,5 +234,14 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         alertDialog.findViewById<TextView>(R.id.rIssueDescription)?.text = issue.desc
         alertDialog.findViewById<TextView>(R.id.rIssueDate)?.text = issue.getDateFormated()
         alertDialog.findViewById<ImageView>(R.id.rImageIssue)?.setImageBitmap(issue.imageToBitmap())
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home -> {
+                (activity as MainActivity).openDrawer()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

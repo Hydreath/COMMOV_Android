@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "410453965609",
+    "firebase_url": "https://commov-28a04.firebaseio.com",
+    "project_id": "commov-28a04",
+    "storage_bucket": "commov-28a04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410453965609:android:7af36c3b43817c67361538",
+        "android_client_info": {
+          "package_name": "com.commov.network.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410453965609-06k5jhlphtcjvnq18ocgk3bu5qbfeb7g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoDFo2OsH1exQpi8Ib4Ah2ezaGFYdVAfg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "410453965609-06k5jhlphtcjvnq18ocgk3bu5qbfeb7g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

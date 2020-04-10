@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="32px"
-    android:layout_marginTop="16px"
-    android:layout_marginRight="32px"
-    android:layout_marginBottom="16px"
-    app:contentPadding="8px">
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="8dp"
+    app:contentPadding="@dimen/margins">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="placeholder"
+            android:textSize="@dimen/label"
             app:layout_constraintEnd_toStartOf="@+id/optionsCard"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,6 +41,7 @@
             android:id="@+id/optionsCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_more_vert_black_24dp" />

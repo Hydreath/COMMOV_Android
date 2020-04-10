@@ -36,6 +36,8 @@
     <string name="commovhelp">CommovHelp</string>
     <string name="removeNote">Remover</string>
     <string name="editNote">Editar</string>
+    <string name="click_the_image_to_change_it">Clique na imagem para alterar a mesma.</string>
+    <string name="channel_name">pn</string>
 
 
 </resources>
