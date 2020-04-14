@@ -1,89 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="@dimen/margins"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/margins">
 
-    <TextView
-        android:id="@+id/issueTitleLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/issueTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="@dimen/label"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/issueTitleEdit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/issueTitleLabel" />
+        <TextView
+            android:id="@+id/issueTitleLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/issueTitle"
+            android:textSize="@dimen/label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/issueDescLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/issueDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/issueTitleEdit"
-        android:textSize="@dimen/label"/>
+        <EditText
+            android:id="@+id/issueTitleEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/issueTitleLabel" />
 
-    <EditText
-        android:id="@+id/issueDescEdit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/issueDescLabel" />
+        <TextView
+            android:id="@+id/issueDescLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/issueDescription"
+            android:textSize="@dimen/label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/issueTitleEdit" />
 
-    <Button
-        android:id="@+id/saveIssue"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/issueSave"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <EditText
+            android:id="@+id/issueDescEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/issueDescLabel" />
 
-    <ImageView
-        android:id="@+id/rIssuePhoto"
-        android:layout_width="0dp"
-        android:layout_height="160dp"
-        android:backgroundTint="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/issuePhotoLabel"
-        app:srcCompat="@drawable/ic_menu_camera" />
+        <Button
+            android:id="@+id/saveIssue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/issueSave"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            android:backgroundTint="#2b617d"
+            android:textColor="#FFFFFF"/>
 
-    <TextView
-        android:id="@+id/issuePhotoLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/issuePhoto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/issueDescEdit"
-        android:textSize="@dimen/label"/>
+        <ImageView
+            android:id="@+id/rIssuePhoto"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:backgroundTint="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/issuePhotoLabel"
+            app:srcCompat="@drawable/ic_menu_camera" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/click_the_image_to_change_it"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rIssuePhoto" />
+        <TextView
+            android:id="@+id/issuePhotoLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/issuePhoto"
+            android:textSize="@dimen/label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/issueDescEdit" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/click_the_image_to_change_it"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rIssuePhoto" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

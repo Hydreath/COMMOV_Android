@@ -2,10 +2,13 @@ package com.commov.ui.map
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.hardware.Sensor
+import android.hardware.SensorManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -27,6 +30,7 @@ import com.commov.MainActivity
 import com.commov.R
 import com.commov.data.issue.Issue
 import com.commov.network.IssueFactory
+import com.commov.sensor.ShakeDetector
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -38,6 +42,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
+import java.time.LocalDateTime
 
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -46,9 +51,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     private lateinit var mapView: MapView
     private lateinit var locationManager: LocationManager
     private lateinit var currentPhotoView: ImageView
-    private lateinit var currentImage: Bitmap
+    var currentImage: Bitmap? = null
     private var map: GoogleMap? = null
     private val markers: HashMap<Marker, Issue> = HashMap()
+    private lateinit var sm: SensorManager
+    private lateinit var acc: Sensor
+    private lateinit var shakeDetector: ShakeDetector
 
     private var locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location?) {
@@ -60,8 +68,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         override fun onProviderDisabled(provider: String?) {}
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
         setHasOptionsMenu(true)
@@ -70,9 +81,29 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         locationManager =
             (activity as AppCompatActivity).getSystemService(LOCATION_SERVICE) as LocationManager
 
+
+        this.sm = (activity as AppCompatActivity).getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        this.acc = this.sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        this.shakeDetector = ShakeDetector()
+        this.shakeDetector.setOnShakeListener(object : ShakeDetector.OnShakeListener {
+            override fun onShake() {
+                println("SHAKE")
+                map?.moveCamera(CameraUpdateFactory.newLatLng(currentLocation))
+            }
+        })
+
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        sm.registerListener(shakeDetector, acc, SensorManager.SENSOR_DELAY_GAME)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sm.unregisterListener(shakeDetector)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -84,47 +115,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
 
         val fab: FloatingActionButton = view.findViewById(R.id.addIssue)
         fab.setOnClickListener { view ->
-            val dialogView =
-                LayoutInflater.from(context).inflate(R.layout.popup_issue_creator, null)
-            val builder = AlertDialog.Builder(context!!).setView(dialogView).setTitle("Add Issue")
-            val alertDialog = builder.show()
-            alertDialog.setCanceledOnTouchOutside(true)
-            this.currentPhotoView = dialogView.findViewById<ImageView>(R.id.rIssuePhoto)
-            this.currentPhotoView.setOnClickListener {
-                var i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                startActivityForResult(i, 123)
-            }
-
-            val btn = dialogView.findViewById<Button>(R.id.saveIssue)
-            btn.setOnClickListener {
-                val title = dialogView.findViewById<EditText>(R.id.issueTitleEdit).text.toString()
-                val desc = dialogView.findViewById<EditText>(R.id.issueDescEdit).text.toString()
-                val photo = bitmapToBase64(this.currentImage)
-                if (title.isNotEmpty() && desc.isNotEmpty() && photo.isNotEmpty()) {
-                    IssueFactory.createIssue(
-                        context!!,
-                        title,
-                        desc,
-                        currentLocation.latitude.toFloat(),
-                        currentLocation.longitude.toFloat(),
-                        photo
-                    ) {
-                        this.map?.addMarker(MarkerOptions().position(currentLocation))
-                        // ADD LOGIC AFTER
-                        alertDialog.dismiss()
-                        Toast.makeText(context, getString(R.string.issueCreated), Toast.LENGTH_LONG)
-                            .show()
-                    }
-                } else {
-                    Toast.makeText(
-                        context,
-                        getString(R.string.createIssueFieldsMissing),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-
-
+            createAddPopup(this.currentLocation)
         }
 
         //ask for permissions for gps
@@ -152,23 +143,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(p0: GoogleMap?) {
-        if (p0 != null) {
-            this.map = p0
-        }
-        p0?.animateCamera(
-            CameraUpdateFactory.newLatLngZoom(
-                currentLocation, 12.0f
-            )
-        )
-
-        p0!!.setOnMarkerClickListener(this)
-
-        IssueFactory.getAllIssues(this.context!!) {
-            initMarkers(p0, it)
-        }
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -192,6 +166,31 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
             this.currentImage = data?.extras?.get("data") as Bitmap
             this.currentPhotoView.setImageBitmap(this.currentImage)
         }
+    }
+
+    override fun onMapReady(p0: GoogleMap?) {
+        p0?.animateCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                currentLocation, 12.0f
+            )
+        )
+
+        p0!!.setOnMarkerClickListener(this)
+
+        IssueFactory.getAllIssues(this.context!!) {
+            initMarkers(p0, it)
+        }
+
+        p0?.setOnMapLongClickListener {
+            createAddPopup(it)
+        }
+
+        this.map = p0
+    }
+
+    override fun onMarkerClick(p0: Marker?): Boolean {
+        markers.get(p0!!)?.let { createMarkerPopup(it) }
+        return true;
     }
 
     private fun bitmapToBase64(image: Bitmap): String {
@@ -220,12 +219,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         }
     }
 
-    override fun onMarkerClick(p0: Marker?): Boolean {
-        markers.get(p0!!)?.let { createMarkerPopup(it) }
-        return true;
-    }
-
-    fun createMarkerPopup(issue: Issue) {
+    private fun createMarkerPopup(issue: Issue) {
         val dialogView =
             LayoutInflater.from(context).inflate(R.layout.popup_read_issue, null)
         val builder = AlertDialog.Builder(context!!).setView(dialogView).setTitle(issue.title)
@@ -237,11 +231,57 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             android.R.id.home -> {
                 (activity as MainActivity).openDrawer()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun createAddPopup(location: LatLng) {
+        val dialogView =
+            LayoutInflater.from(context).inflate(R.layout.popup_issue_creator, null)
+        val builder = AlertDialog.Builder(context!!).setView(dialogView)
+            .setTitle(getString(R.string.add_issue))
+        val alertDialog = builder.show()
+        alertDialog.setCanceledOnTouchOutside(true)
+        this.currentPhotoView = dialogView.findViewById<ImageView>(R.id.rIssuePhoto)
+        this.currentPhotoView.setOnClickListener {
+            var i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(i, 123)
+        }
+
+        val btn = dialogView.findViewById<Button>(R.id.saveIssue)
+        btn.setOnClickListener {
+            val title = dialogView.findViewById<EditText>(R.id.issueTitleEdit).text.toString()
+            val desc = dialogView.findViewById<EditText>(R.id.issueDescEdit).text.toString()
+            var photo = ""
+            if (this.currentImage != null) {
+                photo = bitmapToBase64(this.currentImage!!)
+            }
+            if (title.isNotEmpty() && desc.isNotEmpty() && photo.isNotEmpty()) {
+                IssueFactory.createIssue(
+                    context!!,
+                    title,
+                    desc,
+                    location.latitude.toFloat(),
+                    location.longitude.toFloat(),
+                    photo
+                ) {
+                    this.markers.put(this.map!!.addMarker(MarkerOptions().position(location)), Issue(0, title, desc, photo, location.latitude, location.longitude, LocalDateTime.now().toString()))
+                    // ADD LOGIC AFTER
+                    alertDialog.dismiss()
+                    Toast.makeText(context, getString(R.string.issueCreated), Toast.LENGTH_LONG)
+                        .show()
+                }
+            } else {
+                Toast.makeText(
+                    context,
+                    getString(R.string.createIssueFieldsMissing),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
     }
 }

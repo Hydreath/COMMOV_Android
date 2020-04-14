@@ -39,4 +39,5 @@
     <string name="click_the_image_to_change_it">Click the image to change it.</string>
     <string name="channel_name">pn</string>
     <string name="channel_description">pn_channel</string>
+    <string name="add_issue">Add Issue</string>
 </resources>

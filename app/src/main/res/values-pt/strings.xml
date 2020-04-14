@@ -10,7 +10,7 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Header de Navegação</string>
-    <string name="action_settings">Defenições</string>
+    <string name="action_settings">Definições</string>
     <string name="menu_add">Adicionar</string>
     <string name="menu_view_all">Ver</string>
     <string name="notes">Notas</string>
@@ -32,12 +32,13 @@
     <string name="createNoteTitle">Criar Nota</string>
     <string name="editNoteTitle">Editar Nota</string>
     <string name="editDescriptionEmpty">A descrição está vazia!</string>
-    <string name="noteListTitle">Notes</string>
+    <string name="noteListTitle">Notas</string>
     <string name="commovhelp">CommovHelp</string>
     <string name="removeNote">Remover</string>
     <string name="editNote">Editar</string>
     <string name="click_the_image_to_change_it">Clique na imagem para alterar a mesma.</string>
     <string name="channel_name">pn</string>
-
+    <string name="channel_description">pn_channel</string>
+    <string name="add_issue">Adicionar Problema</string>
 
 </resources>

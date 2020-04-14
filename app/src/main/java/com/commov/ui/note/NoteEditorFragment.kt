@@ -83,6 +83,6 @@ class NoteEditorFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        //(activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 }

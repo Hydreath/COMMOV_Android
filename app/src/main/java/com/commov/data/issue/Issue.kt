@@ -12,7 +12,7 @@ import java.util.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class Issue(
-    id: Int,
+    var id: Int,
     var title: String,
     var desc: String,
     var image: String,

@@ -79,7 +79,7 @@ class NoteCreatorFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        //(activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
     private fun setupCalendar() {

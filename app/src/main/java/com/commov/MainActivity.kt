@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.mapFragment)
                 }
                 R.id.myPoints -> {
-                    // TODO
+                    navController.navigate(R.id.myPointsFragment)
                 }
             }
             this.drawerView.closeDrawers()

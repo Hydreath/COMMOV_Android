@@ -30,6 +30,7 @@ object UserAuth {
                 }
             },
             Response.ErrorListener { error ->
+                println(error.message)
                 when (error.networkResponse.statusCode){
                     403 -> {
                         Toast.makeText(context, "Login information is not correct!", Toast.LENGTH_SHORT).show()

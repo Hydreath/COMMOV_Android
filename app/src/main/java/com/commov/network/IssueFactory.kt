@@ -52,7 +52,7 @@ object IssueFactory {
         RequestQueueManager.getInstance(context).addToRequestQueue(jsonObjectRequest)
     }
 
-    fun getAllIssues(context: Context, callback: ((JSONObject)-> Unit)){
+    fun getAllIssues(context: Context, callback: ((JSONObject) -> Unit)) {
         val serviceURI = "${Endpoints.address}issues";
         // missing base64 image
 
@@ -69,6 +69,68 @@ object IssueFactory {
                     context.getString(R.string.errorGettingIssues),
                     Toast.LENGTH_SHORT
                 ).show()
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                var params: MutableMap<String, String> = HashMap<String, String>()
+
+                params["Authorization"] = "Bearer ${UserAuth.token}"
+                return params
+            }
+        }
+
+        RequestQueueManager.getInstance(context).addToRequestQueue(jsonObjectRequest)
+    }
+
+    fun getAllUserIssues(context: Context, callback: ((JSONObject) -> Unit)) {
+        val serviceURI = "${Endpoints.address}user/issues";
+        // missing base64 image
+
+        val jsonObjectRequest = object : JsonObjectRequest(
+            Request.Method.GET,
+            serviceURI,
+            null,
+            Response.Listener { response ->
+                callback.invoke(response)
+            },
+            Response.ErrorListener { error ->
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.errorGettingIssues),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                var params: MutableMap<String, String> = HashMap<String, String>()
+
+                params["Authorization"] = "Bearer ${UserAuth.token}"
+                return params
+            }
+        }
+
+        RequestQueueManager.getInstance(context).addToRequestQueue(jsonObjectRequest)
+    }
+
+    fun deleteIssue(context: Context, id:Int,callback: ((JSONObject) -> Unit)) {
+        val serviceURI = "${Endpoints.address}issue/${id}";
+        // missing base64 image
+
+        val jsonObjectRequest = object : JsonObjectRequest(
+            Request.Method.DELETE,
+            serviceURI,
+            null,
+            Response.Listener { response ->
+                callback.invoke(response)
+            },
+            Response.ErrorListener { error ->
+                /*
+                Toast.makeText(
+                    context,
+                    context.getString("Error d"),
+                    Toast.LENGTH_SHORT
+                ).show()
+                 */
             }
         ) {
             override fun getHeaders(): MutableMap<String, String> {
